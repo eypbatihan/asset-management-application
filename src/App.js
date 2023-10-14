@@ -257,6 +257,7 @@ function App() {
         <div className="d-flex">
           <button
             className="btn btn-outline-success btn-xs me-1"
+            id={"btn-view-"+row.id}
             onClick={() => {
               setArt(row);
               setModal("view");
@@ -266,6 +267,7 @@ function App() {
           </button>
           <button
             className="btn btn-xs btn-outline-danger"
+            id={"btn-delete-"+row.id}
             onClick={() => {
               setArt(row);
               setModal("delete");
@@ -275,7 +277,7 @@ function App() {
           </button>
         </div>
       ),
-      width: "12rem",
+      width: "11.5rem",
     },
   ];
 
@@ -310,8 +312,9 @@ function App() {
       customClass: "alert-body",
       position: "center",
       icon: "success",
+      id:"created-art-alert",
       title:
-        "Your transaction was completed successfully." /**-------"İşleminiz başarılı bir şekilde gerçekleştirilmiştir."----*/,
+        "Your art was created successfully." /**-------"Sanatınız başarıyla oluşturuldu."----*/,
       showConfirmButton: true,
       showCloseButton: true,
       confirmButtonColor: "#0097a7",
@@ -330,8 +333,9 @@ function App() {
       customClass: "alert-body",
       position: "center",
       icon: "success",
+      id:"deleted-art-alert",
       title:
-        "Your transaction was completed successfully." /**-------"İşleminiz başarılı bir şekilde gerçekleştirilmiştir."----*/,
+        "Your art was deleted successfully." /**-------"Sanat eseriniz başarıyla silindi."----*/,
       showConfirmButton: true,
       showCloseButton: true,
       confirmButtonColor: "#0097a7",
@@ -376,11 +380,11 @@ function App() {
                 <div className="col-8 ">
                   <dl className="row mb-0">
                     <h6 className="col-3">
-                      Total Count : <span>{data.length}</span>{" "}
+                      Total Art Count : <span className="text-secondary">{data.length}</span>{" "}
                     </h6>
                     <h6 className="col-3">
                       Pictorial Art Count :{" "}
-                      <span>
+                      <span className="text-secondary">
                         {
                           data.filter((obj) => obj.type === "pictorial art")
                             .length
@@ -389,7 +393,7 @@ function App() {
                     </h6>
                     <h6 className="col-3">
                       Sculpture Art Count :{" "}
-                      <span>
+                      <span className="text-secondary">
                         {
                           data.filter((obj) => obj.type === "sculpture art")
                             .length
@@ -401,7 +405,8 @@ function App() {
                 <div>
                   <button
                     type="button"
-                    className="btn btn-success px-4"
+                    className="btn btn-success px-4 me-4"
+                    id="btn-art-add"
                     onClick={() => setModal("add")}
                   >
                     ADD
@@ -421,6 +426,7 @@ function App() {
           {data && (
             <DataTable
               title=""
+              id="art-data-table"
               columns={columns}
               data={data}
               pagination
@@ -452,7 +458,7 @@ function App() {
             >
               <div className="modal-content">
                 <div className="modal-header">
-                  <h5 className="modal-title">Art Edit</h5>
+                  <h5 className="modal-title">Create Art</h5>
                   <button
                     type="button"
                     className="btn-close"
@@ -463,7 +469,7 @@ function App() {
                   <div className="basic-form">
                     <form>
                       <label htmlFor="artName" className="form-label ">
-                        Name
+                        Name *
                       </label>
                       <br />
                       <input
@@ -476,7 +482,7 @@ function App() {
                         onChange={(e) => setName(e.target.value)}
                       />
                       <label htmlFor="artType" className="form-label">
-                        Type
+                        Type *
                       </label>
                       <br />
                       <div className="input-group mb-3">
@@ -488,7 +494,7 @@ function App() {
                           onChange={(e) => setType(e.target.value)}
                         >
                           <option value="" disabled>
-                            Please Select Type
+                            Please Select Type *
                           </option>
                           <option value="pictorial art">Pictorial Art</option>
                           <option value="sculpture art">Sculpture Art</option>
@@ -510,7 +516,7 @@ function App() {
                         htmlFor="artDescription"
                         className="col-sm-3 col-form-label"
                       >
-                        Description
+                        Description *
                       </label>
                       <br />
                       <textarea
@@ -527,6 +533,7 @@ function App() {
                         <button
                           type="button"
                           className="btn btn-outline-danger light"
+                          id="btn-art-add-cancel"
                           onClick={statedelete}
                         >
                           Cancel
@@ -534,6 +541,7 @@ function App() {
                         <button
                           type="submit"
                           className="btn btn-outline-success"
+                          id="btn-art-add-save"
                           onClick={(e) =>
                             name && type && description && post(e)
                           }
@@ -557,7 +565,7 @@ function App() {
               backdropFilter: "brightness(50%)",
               overflow: "auto",
             }}
-            id="add-data-modal"
+            id="delete-data-modal"
             tabIndex="-1"
           >
             <div
@@ -567,7 +575,7 @@ function App() {
             >
               <div className="modal-content">
                 <div className="modal-header">
-                  <h5 className="modal-title">Art Delete</h5>
+                  <h5 className="modal-title">Delete Art</h5>
                   <button
                     type="button"
                     className="btn-close"
@@ -578,7 +586,7 @@ function App() {
                   <div className="basic-form">
                     <form>
                       <label className=" col-form-label mycolor">
-                        <strong> {art.name} </strong> will be deleted!
+                      Do you really want to delete <strong> {art.name} </strong>?
                       </label>
                     </form>
                   </div>
@@ -586,17 +594,19 @@ function App() {
                 <div className="modal-footer">
                   <button
                     type="button"
-                    className="btn btn-outline-success mypagebtn"
+                    className="btn btn-outline-danger mypagebtn"
+                    id="btn-art-delete-cancel"
                     onClick={statedelete}
                   >
                     Cancel
                   </button>
                   <button
                     type="button"
-                    className="btn btn-danger"
+                    className="btn btn-outline-success"
+                    id="btn-art-delete-confirm"
                     onClick={() => postDelete(art.id)}
                   >
-                    Delete
+                    Confirm
                   </button>
                 </div>
               </div>
@@ -612,7 +622,7 @@ function App() {
               backdropFilter: "brightness(50%)",
               overflow: "auto",
             }}
-            id="add-data-modal"
+            id="view-data-modal"
             tabIndex="-1"
           >
             <div
@@ -679,6 +689,7 @@ function App() {
                   <button
                     type="button"
                     className="btn btn-outline-success"
+                    id="btn-art-view-close"
                     onClick={statedelete}
                   >
                     Close
