@@ -380,7 +380,7 @@ function App() {
                 <div className="col-8 ">
                   <dl className="row mb-0">
                     <h6 className="col-3">
-                      Total Art Count : <span className="text-secondary">{data.length}</span>{" "}
+                      Total Art Count : <span className="text-secondary" id="total-count">{data.length}</span>{" "}
                     </h6>
                     <h6 className="col-3">
                       Pictorial Art Count :{" "}
