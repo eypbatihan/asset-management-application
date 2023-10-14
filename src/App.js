@@ -312,7 +312,6 @@ function App() {
       customClass: "alert-body",
       position: "center",
       icon: "success",
-      id:"created-art-alert",
       title:
         "Your art was created successfully." /**-------"Sanatınız başarıyla oluşturuldu."----*/,
       showConfirmButton: true,
@@ -333,7 +332,6 @@ function App() {
       customClass: "alert-body",
       position: "center",
       icon: "success",
-      id:"deleted-art-alert",
       title:
         "Your art was deleted successfully." /**-------"Sanat eseriniz başarıyla silindi."----*/,
       showConfirmButton: true,
@@ -426,7 +424,6 @@ function App() {
           {data && (
             <DataTable
               title=""
-              id="art-data-table"
               columns={columns}
               data={data}
               pagination
