@@ -223,9 +223,8 @@ function App() {
       name: "Name",
       selector: (row) => row.name,
       sortable: true,
-      width: "20%",
+      width: "auto",
       wrap: true,
-      hide: "sm",
     },
     {
       name: "Type",
@@ -233,7 +232,7 @@ function App() {
       sortable: true,
       width: "20%",
       wrap: true,
-      hide: "sm",
+      hide:"sm",
     },
     {
       name: "Addition Date",
@@ -241,7 +240,7 @@ function App() {
       sortable: true,
       width: "20%",
       wrap: true,
-      hide: "sm",
+      hide:"sm",
     },
     {
       name: "Description",
@@ -249,7 +248,7 @@ function App() {
       sortable: true,
       width: "auto",
       wrap: true,
-      hide: "sm",
+      hide:"sm",
     },
     {
       name: "",
@@ -629,7 +628,7 @@ function App() {
             >
               <div className="modal-content">
                 <div className="modal-header">
-                  <h5 className="modal-title">Art Detail</h5>
+                  <h5 className="modal-title">Detail Art</h5>
                   <button
                     type="button"
                     className="btn-close"
@@ -685,7 +684,7 @@ function App() {
                 <div className="modal-footer">
                   <button
                     type="button"
-                    className="btn btn-outline-success"
+                    className="btn btn-outline-danger"
                     id="btn-art-view-close"
                     onClick={statedelete}
                   >
