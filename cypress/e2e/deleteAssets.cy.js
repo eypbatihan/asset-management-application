@@ -1,14 +1,30 @@
-describe("Delete Art", () => {
-  it("Visits the site", () => {
-    cy.visit("https://eypbatihan-mintus-app.netlify.app/");
-    cy.get('.rdt_TableRow').should('be.visible');
-    cy.get("#total-count").invoke("val").as("baslangicSayisi"); 
-    cy.get("#btn-delete-2").click();
-    cy.get('#delete-data-modal').should('be.visible');
-    cy.get("#btn-art-delete-confirm").click();
-    cy.get('.swal2-modal').should('be.visible');
-    cy.get(".swal2-confirm").click();
-    cy.get("#total-count").invoke("val").as("yeniSayi");
-    cy.get("@baslangicSayisi").should("not.equal", "@yeniSayi");
-  });
+import { DeleteArt, GeneralArt } from '../support/elements.js';
+
+describe("Create Art Tests", () => {
+beforeEach(() => {
+cy.visit('/');
 });
+it("check delete art modal", () => {
+// check delete button and click
+DeleteArt.deleteButton().click();
+
+// check modal
+DeleteArt.deleteModal().should('be.visible');
+
+//keep the starting number of total art count 
+GeneralArt.totalCount().invoke("val").as("startingNumber");
+
+// delete modal confirm click
+DeleteArt.confirmButton().click();
+
+//alert check
+DeleteArt.allertModal().should('be.visible');
+DeleteArt.allertConfirm().click();
+
+//keep the current number of total art count 
+GeneralArt.totalCount().invoke("val").as("currentNumber");
+
+//check the startingNumber and currentNumber
+cy.get("@startingNumber").should("not.equal", "@currentNumber");
+});})
+

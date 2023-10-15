@@ -1,9 +1,16 @@
-describe("View Art", () => {
-  it("Visits the site", () => {
-    cy.visit("https://eypbatihan-mintus-app.netlify.app/");
-    cy.get(".rdt_TableRow").should("be.visible");
-    cy.get("#btn-view-2").click();
-    cy.get("#view-data-modal").should("be.visible");
-    cy.get("#btn-art-view-close").click();
-  });
+import { ViewArt} from '../support/elements.js';
+
+describe("Create Art Tests", () => {
+beforeEach(() => {
+cy.visit('/');
 });
+it("check view art modal", () => {
+// check view button and click
+ViewArt.viewButton().click();
+
+// check modal
+ViewArt.viewModal().should('be.visible');
+
+//close modal
+ViewArt.closeButton().click();
+});})
